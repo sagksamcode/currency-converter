@@ -50,4 +50,12 @@ public class GlobalExceptionHandler {
         return new Issue(IssueEnum.BAD_REQUEST, errors);
     }
 
+    @ExceptionHandler({NotFoundException.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    protected Issue processNotFoundException(final GlobalException ex, final WebRequest request) {
+        LOGGER.error(String.valueOf(ex));
+        return ex.getIssue();
+    }
+
+
 }
